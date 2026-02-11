@@ -55,3 +55,32 @@ const arr2 = [2,5,6];
 merge(arr1, 3, arr2, 3)
 
 console.log({arr1});
+
+// Optimal Solution
+
+// We have two sorted arrays:
+// nums1 with length m + n where the first m elements are valid.
+// nums2 with n elements.
+// The goal: merge nums2 into nums1 in sorted order in-place.
+// Start filling nums1 from the end (index m + n - 1), comparing the last elements of both arrays (nums1[m-1] and nums2[n-1]).
+// Place the larger element at the current last position.
+// Move pointers accordingly:
+// Decrement the pointer in nums1 or nums2.
+// Decrement the position pointer for placement.
+// If nums2 is exhausted first, merging is done.
+// If nums1 is exhausted first, copy remaining elements of nums2.
+
+var mergeOptimal = function(nums1, m, nums2, n) {
+    let p1 = m - 1;
+    let p2 = n - 1;
+  
+    for (let i = m + n - 1; i >= 0; i--) {
+      if (p2 < 0) break;
+  
+      if (p1 >= 0 && nums1[p1] > nums2[p2]) {
+        nums1[i] = nums1[p1--];
+      } else {
+        nums1[i] = nums2[p2--];
+      }
+    }
+}; 
