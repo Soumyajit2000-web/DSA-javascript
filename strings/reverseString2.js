@@ -29,14 +29,13 @@ s consists of only lowercase English letters.
  */
 var reverseStr = function (s, k) {
   s = s.split("");
-
-  for (let x = 0; x < s.length; x = x + 2 * k) {
-    let n = Math.min(k, s.length - x);
+  for (let i = 0; i < s.length; i = i + 2 * k) {
+    let n = Math.min(k, s.length - i);
     let mid = Math.floor(n / 2);
-    for (let i = 0; i < mid; i++) {
-      let temp = s[x + i];
-      s[x + i] = s[x + n - 1 - i];
-      s[x + n - 1 - i] = temp;
+    for (let j = 0; j < mid; j++) {
+      let temp = s[i + j];
+      s[i + j] = s[i + n - 1 - j];
+      s[i + n - 1 - j] = temp;
     }
   }
   return s.join("");
