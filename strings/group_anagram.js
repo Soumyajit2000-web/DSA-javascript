@@ -37,6 +37,21 @@ strs[i] consists of lowercase English letters.
  * @param {string[]} strs
  * @return {string[][]}
  */
-var groupAnagrams = function(strs) {
-    
+var groupAnagrams = function (strs) {
+  let map = {};
+
+  for (let i = 0; i<strs.length; i++){
+    const sortedString = strs[i].split("").sort().join("");
+
+    if (!map[sortedString]) {
+        map[sortedString] = [strs[i]];
+    } else {
+        map[sortedString].push(strs[i]);
+    }
+  }
+
+  return Object.values(map);
 };
+
+const strgs = ["eat","tea","tan","ate","nat","bat"];
+console.log(groupAnagrams(strgs));
