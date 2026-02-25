@@ -23,24 +23,49 @@ s and t consist of lowercase English letters.
 Follow up: What if the inputs contain Unicode characters? How would you adapt your solution to such a case?
 */
 
-
 /**
  * @param {string} s
  * @param {string} t
  * @return {boolean}
  */
-var isAnagram = function(s, t) {
-    const sortS = s.split("").sort().join("");
-    const sortT = t.split("").sort().join("");
-    console.log({sortS, sortT})
-    if (sortS === sortT) {
-        return true;
+var isAnagram = function (s, t) {
+  const chCount = new Map();
+  for (let i = 0; i < s.length; i++) {
+    const ch = s[i];
+    if (chCount.has(ch)) {
+      const count = chCount.get(ch);
+      chCount.set(ch, count+1);
+    } else {
+      chCount.set(ch, 1);
     }
+  }
 
-    return false;
+  console.log(chCount);
+
+  for (let i = 0; i < t.length; i++) {
+    const ch = t[i];
+    if (chCount.has(ch)) {
+      const count = chCount.get(ch);
+      chCount.set(ch, count-1);
+    } else {
+      return false;
+    }
+  }
+
+  console.log(chCount);
+
+
+
+  for (let val of chCount.values()){
+    if(val>0 || val<0){
+        return false
+    }
+  }
+
+  return true;
 };
 
-const s = "anagram"
-const t = "nagaram"
+const s = "abcdefghijklmnopqrstuvwxyz";
+const t = "aabbccddeeffgghhiijjkkllmmnnooppqqrrssttuuvvwwxxyyzz";
 
-console.log(isAnagram(s,t));
+console.log(isAnagram(s, t));
